@@ -85,6 +85,7 @@ unimined.minecraft {
             enableMixinExtra()
             disableRefmap()
         }
+
     }
 
     mods {

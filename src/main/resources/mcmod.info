@@ -1,0 +1,15 @@
+[
+	{
+		"modid": "legacychecker",
+		"name": "LegacyChecker",
+		"version": "1.0.0",
+		"mcversion": "1.12.2",
+		"description": "",
+		"authorList": ["ShadowKing21"],
+		"credits": "",
+		"url": "",
+		"updateJSON": "",
+		"logoFile": "",
+		"dependencies": ["shadowconfig"]
+	}
+]

@@ -1,0 +1,7 @@
+gui.legacychecker.title=MISSING REQUIRED MODS
+gui.legacychecker.subtitle=The following mods are required but not installed:
+gui.legacychecker.footer.cant_load=Install these mods and restart the game.
+gui.legacychecker.footer.can_load=You can play, but some features might be broken.
+gui.legacychecker.btn.download=Download
+gui.legacychecker.btn.continue=Continue
+gui.legacychecker.btn.exit=Exit Game

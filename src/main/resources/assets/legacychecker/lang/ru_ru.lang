@@ -1,0 +1,7 @@
+gui.legacychecker.title=ОТСУТСТВУЮТ НЕОБХОДИМЫЕ МОДЫ
+gui.legacychecker.subtitle=Следующие моды обязательны, но не установлены в системе:
+gui.legacychecker.footer.cant_load=Установите эти моды и перезапустите игру.
+gui.legacychecker.footer.can_load=Вы можете продолжить, но некоторые функции могут не работать.
+gui.legacychecker.btn.download=Скачать
+gui.legacychecker.btn.continue=Продолжить
+gui.legacychecker.btn.exit=Выйти из игры
