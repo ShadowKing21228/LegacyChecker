@@ -6,7 +6,8 @@ import java.util.List;
 
 public class ConfigModel {
 
-    @ConfigComment("The value responsible for the ability to continue the game correctly even without mods from requiredMods (the \"ignore\" button appears).")
+    @ConfigComment("If true, the \"Continue\" button appears, allowing players to skip the warning.\n" +
+            "If false, players must install the mods or exit the game.")
     public boolean canPlayerLoadGame = false;
 
     @ConfigComment(
