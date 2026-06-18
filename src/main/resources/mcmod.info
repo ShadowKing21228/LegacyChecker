@@ -9,7 +9,7 @@
 		"credits": "ShadowKing21",
 		"url": "",
 		"updateJSON": "",
-		"logoFile": "",
+		"logoFile": "assets/legacychecker/logo.png",
 		"dependencies": ["shadowconfig"]
 	}
 ]

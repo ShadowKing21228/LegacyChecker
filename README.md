@@ -1,8 +1,8 @@
 # LegacyChecker
 
-A lightweight, fail-safe utility mod for Minecraft 1.12.2 (built for the modern **Cleanroom** ecosystem) that ensures players have all mandatory mods installed before entering the game.
+A lightweight, fail-safe utility mod that ensures players have all mandatory mods installed before entering the game.
 
-It eleganty solves license restrictions (like **All Rights Reserved / ARR**) that prevent modpack authors from bundling specific mods directly into Modrinth `.mrpack` files.
+It elegantly solves license restrictions (like **All Rights Reserved / ARR**) that prevent modpack authors from bundling specific mods directly into modpack files.
 
 ---
 
