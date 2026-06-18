@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import org.apache.commons.lang3.tuple.Triple;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
