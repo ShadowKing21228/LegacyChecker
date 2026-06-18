@@ -22,10 +22,6 @@ public class GuiMissingMods extends GuiScreen {
 
     private static final int START_Y = 65;
 
-    private static final int MOD_LIST_HEIGHT = 140;
-
-    private static final int END_Y = START_Y + MOD_LIST_HEIGHT;
-
     private static final int ROW_HEIGHT = 24;
 
     private boolean isScrolling = false;
@@ -54,14 +50,17 @@ public class GuiMissingMods extends GuiScreen {
     }
 
     private void refreshModButtons() {
+
         this.buttonList.removeIf(button -> button.id >= 10);
 
         String btnDownload = I18n.format("gui.legacychecker.btn.download");
+        int endY = this.height - 45;
 
         for (int i = 0; i < this.missingMods.size(); i++) {
             int y = START_Y + 10 + (i * ROW_HEIGHT) - scrollOffset;
 
-            if (y > START_Y + 4 && y + 20 < END_Y - 4) {
+
+            if (y > START_Y + 4 && y + 20 < endY - 4) {
                 this.buttonList.add(new GuiButton(10 + i, this.width - 110, y, 75, 20, btnDownload));
             }
         }
@@ -78,23 +77,31 @@ public class GuiMissingMods extends GuiScreen {
         this.drawCenteredString(this.fontRenderer, title, this.width / 2, 20, 0xFFFFFF);
         this.drawCenteredString(this.fontRenderer, subtitle, this.width / 2, 40, 0xAAAAAA);
 
-        drawRect(15, START_Y, this.width - 15, END_Y, 0x55000000);
+        int endY = this.height - 45;
+        int currentBoxHeight = endY - START_Y;
+
+        drawRect(15, START_Y, this.width - 15, endY, 0x55000000);
         drawHorizontalLine(15, this.width - 15, START_Y, 0x33FFFFFF);
-        drawHorizontalLine(15, this.width - 15, END_Y, 0x33FFFFFF);
+        drawHorizontalLine(15, this.width - 15, endY, 0x33FFFFFF);
 
         int totalContentHeight = this.missingMods.size() * ROW_HEIGHT + 16;
-        int maxScroll = Math.max(0, totalContentHeight - MOD_LIST_HEIGHT);
+        int maxScroll = Math.max(0, totalContentHeight - currentBoxHeight);
 
-        if (totalContentHeight > MOD_LIST_HEIGHT) {
+        if (scrollOffset > maxScroll) {
+            scrollOffset = maxScroll;
+            refreshModButtons();
+        }
+
+        if (totalContentHeight > currentBoxHeight) {
             int scrollbarX = this.width - 25;
             int scrollbarWidth = 6;
 
-            int scrollbarHeight = Math.max(15, (MOD_LIST_HEIGHT * MOD_LIST_HEIGHT) / totalContentHeight);
-            int availableScrollSpace = MOD_LIST_HEIGHT - scrollbarHeight;
+            int scrollbarHeight = Math.max(15, (currentBoxHeight * currentBoxHeight) / totalContentHeight);
+            int availableScrollSpace = currentBoxHeight - scrollbarHeight;
 
             if (Mouse.isButtonDown(0)) {
                 if (!this.isScrolling) {
-                    if (mouseX >= scrollbarX - 2 && mouseX <= scrollbarX + scrollbarWidth + 2 && mouseY >= START_Y && mouseY <= END_Y) {
+                    if (mouseX >= scrollbarX - 2 && mouseX <= scrollbarX + scrollbarWidth + 2 && mouseY >= START_Y && mouseY <= endY) {
                         this.isScrolling = true;
                     }
                 }
@@ -111,7 +118,7 @@ public class GuiMissingMods extends GuiScreen {
 
             int scrollbarY = START_Y + (scrollOffset * availableScrollSpace) / maxScroll;
 
-            drawRect(scrollbarX, START_Y + 2, scrollbarX + scrollbarWidth, END_Y - 2, 0x33FFFFFF);
+            drawRect(scrollbarX, START_Y + 2, scrollbarX + scrollbarWidth, endY - 2, 0x33FFFFFF);
             drawRect(scrollbarX, scrollbarY, scrollbarX + scrollbarWidth, scrollbarY + scrollbarHeight, 0x88FFFFFF);
         } else {
             this.isScrolling = false;
@@ -121,7 +128,7 @@ public class GuiMissingMods extends GuiScreen {
             ModRequirement mod = this.missingMods.get(i);
             int y = START_Y + 16 + (i * ROW_HEIGHT) - scrollOffset;
 
-            if (y > START_Y + 4 && y < END_Y - 6) {
+            if (y > START_Y + 4 && y < endY - 6) {
                 String rawText = String.format("§c• §e%s §7(%s)", mod.modName(), mod.modId());
                 String trimmedText = this.fontRenderer.trimStringToWidth(rawText, this.width - 150);
 
@@ -134,7 +141,9 @@ public class GuiMissingMods extends GuiScreen {
                 : "gui.legacychecker.footer.cant_load";
         String footer = "§7" + I18n.format(footerKey);
 
-        this.drawCenteredString(this.fontRenderer, footer, this.width / 2, this.height - 48, 0xAAAAAA);
+        this.drawCenteredString(this.fontRenderer, footer, this.width / 2, this.height - 42, 0xAAAAAA);
+
+        refreshModButtons();
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -147,9 +156,9 @@ public class GuiMissingMods extends GuiScreen {
         if (scroll != 0) {
             scrollOffset += (scroll > 0 ? -12 : 12);
 
-            // ИСПРАВЛЕНО: Идентичный правильный расчет лимита для колесика
+            int currentBoxHeight = (this.height - 45) - START_Y;
             int totalContentHeight = this.missingMods.size() * ROW_HEIGHT + 16;
-            int maxScroll = Math.max(0, totalContentHeight - MOD_LIST_HEIGHT);
+            int maxScroll = Math.max(0, totalContentHeight - currentBoxHeight);
             scrollOffset = Math.clamp(scrollOffset, 0, maxScroll);
 
             refreshModButtons();
